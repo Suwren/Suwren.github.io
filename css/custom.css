@@ -1,0 +1,67 @@
+/* Minimalist Sunny-style Hexo setup */
+
+/* Clean background */
+body {
+    background-color: #f7f7f7 !important;
+}
+
+/* Make layout clean */
+.layout {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Minimalist cards */
+#aside-content .card-widget,
+.recent-post-item,
+.article-container,
+#archive,
+#tag,
+#category,
+#page {
+    background: #ffffff !important;
+    border-radius: 12px !important;
+    border: none !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03) !important;
+    transition: all 0.3s;
+}
+
+#aside-content .card-widget:hover,
+.recent-post-item:hover,
+.article-container:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Clean Nav Bar */
+#page-header.nav-fixed #nav {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Clean header/banner completely */
+#page-header {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Hide header info text if no image */
+#page-header #site-info {
+    padding-top: 5rem;
+    color: #333 !important;
+    text-shadow: none !important;
+}
+
+#page-header #site-title {
+    color: #333 !important;
+}
+
+#page-header #site-subtitle {
+    color: #666 !important;
+}
+
+/* Profile image rounded */
+.card-info-avatar {
+    border-radius: 50% !important;
+}
