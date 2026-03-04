@@ -51,29 +51,31 @@
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.04) !important;
 }
 
-#page-header {
+/* #page-header {
     background: transparent !important;
     box-shadow: none !important;
-}
+} */
 
-/* ---------- 标题/链接 玫红色 ---------- */
-a,
-.article-title,
-.post-title,
-.recent-post-info .article-title,
-#aside-content .card-widget .item-headline i,
-.article-meta a,
-.article-meta span,
+/* ---------- 仅导航栏标题 玫红色 ---------- */
+/* #site-name,
+#blog-info a,
 #nav a,
-#nav .site-name,
-#site-name,
-#blog-info a {
-    color: #e91e63 !important;
+#nav .site-name {
+    color: #ec5587 !important;
 }
 
-a:hover {
-    color: #c2185b !important;
+#nav a:hover {
+    color: #ec5587 !important;
+} */
+
+/* 暗黑模式：导航栏标题改白色 */
+[data-theme="dark"] #site-name,
+[data-theme="dark"] #blog-info a,
+[data-theme="dark"] #nav a,
+[data-theme="dark"] #nav .site-name {
+    color: #ffffff !important;
 }
+
 
 /* ---------- 右下角按钮 玫红色 ---------- */
 #rightside button,
@@ -83,13 +85,23 @@ a:hover {
 #rightside-config-hide a,
 #rightside-config-show a,
 button#go-up {
-    background: #e91e63 !important;
+    background: #ec5587 !important;
     color: #ffffff !important;
 }
 
 #rightside button:hover,
 #rightside a:hover {
-    background: #c2185b !important;
+    background: #ec5587 !important;
+}
+
+/* 暗黑模式：按钮改黑底白字 */
+[data-theme="dark"] #rightside button,
+[data-theme="dark"] #rightside a,
+[data-theme="dark"] #rightside-config-hide button,
+[data-theme="dark"] #rightside-config-show button,
+[data-theme="dark"] button#go-up {
+    background: #1a1a1a !important;
+    color: #ffffff !important;
 }
 
 /* ---------- 滚动条 玫红色 ---------- */
@@ -103,25 +115,35 @@ button#go-up {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #e91e63;
+    background: #ec5587;
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #c2185b;
+    background: #ec5587;
+}
+
+/* 暗黑模式：滚动条改白色 */
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: #ffffff;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: #cccccc;
 }
 
 /* ---------- 页脚 ---------- */
 #footer,
 #footer * {
     background: var(--global-bg) !important;
-    color: #e91e63 !important;
+    color: #ec5587 !important;
 }
 
+/* 暗黑模式：页脚黑底白字 */
 [data-theme="dark"] #footer,
 [data-theme="dark"] #footer * {
-    background: #1a1a2e !important;
-    color: #e91e63 !important;
+    background: #121212 !important;
+    color: #ffffff !important;
 }
 
 /* ---------- 头像圆形 ---------- */
