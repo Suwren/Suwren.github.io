@@ -65,7 +65,9 @@ a,
 .article-meta a,
 .article-meta span,
 #nav a,
-#nav .site-name {
+#nav .site-name,
+#site-name,
+#blog-info a {
     color: #e91e63 !important;
 }
 
@@ -74,14 +76,19 @@ a:hover {
 }
 
 /* ---------- 右下角按钮 玫红色 ---------- */
-#rightside>div>button,
-#rightside>div>a {
+#rightside button,
+#rightside a,
+#rightside-config-hide button,
+#rightside-config-show button,
+#rightside-config-hide a,
+#rightside-config-show a,
+button#go-up {
     background: #e91e63 !important;
     color: #ffffff !important;
 }
 
-#rightside>div>button:hover,
-#rightside>div>a:hover {
+#rightside button:hover,
+#rightside a:hover {
     background: #c2185b !important;
 }
 
