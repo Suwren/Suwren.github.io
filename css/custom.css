@@ -2,7 +2,7 @@
 
 /* Clean background */
 body {
-    background-color: #f7f7f7 !important;
+    background: var(--card-bg) !important;
 }
 
 /* Make layout clean */
@@ -19,7 +19,7 @@ body {
 #tag,
 #category,
 #page {
-    background: #ffffff !important;
+    background: var(--card-bg) !important;
     border-radius: 12px !important;
     border: none !important;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03) !important;
