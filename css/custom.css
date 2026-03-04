@@ -55,11 +55,11 @@
 /* ---------- 页脚 ---------- */
 #footer {
     background: var(--global-bg) !important;
-    color: var(--font-color) !important;
+    color: #e91e63 !important;
 }
 
 #footer a {
-    color: var(--font-color) !important;
+    color: #e91e63 !important;
     opacity: 0.7;
 }
 
@@ -70,4 +70,8 @@
 /* ---------- 头像圆形 ---------- */
 .card-info-avatar {
     border-radius: 50% !important;
+}
+
+[data-theme="dark"] #footer {
+    background: #1a1a2e !important;
 }
