@@ -1,17 +1,14 @@
-/* Minimalist Sunny-style Hexo setup */
+/* ============================================
+   极简风格自定义样式 (兼容亮色/暗黑模式)
+   ============================================ */
 
-/* Clean background */
-body {
-    background: var(--card-bg) !important;
-}
-
-/* Make layout clean */
+/* ---------- 布局 ---------- */
 .layout {
     max-width: 1100px;
     margin: 0 auto;
 }
 
-/* Minimalist cards */
+/* ---------- 卡片样式 ---------- */
 #aside-content .card-widget,
 .recent-post-item,
 .article-container,
@@ -19,49 +16,58 @@ body {
 #tag,
 #category,
 #page {
-    background: var(--card-bg) !important;
     border-radius: 12px !important;
     border: none !important;
-    box-shadow: 0 4px 10px var(--card-bg) !important;
-    transition: all 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04) !important;
+    transition: all 0.3s ease;
 }
 
 #aside-content .card-widget:hover,
 .recent-post-item:hover,
 .article-container:hover {
-    box-shadow: 0 8px 12px var(--card-bg) !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08) !important;
 }
 
-/* Clean Nav Bar */
+/* 暗黑模式下卡片阴影调淡 */
+[data-theme="dark"] #aside-content .card-widget,
+[data-theme="dark"] .recent-post-item,
+[data-theme="dark"] .article-container,
+[data-theme="dark"] #archive,
+[data-theme="dark"] #tag,
+[data-theme="dark"] #category,
+[data-theme="dark"] #page {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* ---------- 导航栏 ---------- */
 #page-header.nav-fixed #nav {
-    background: var(--card-bg) !important;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 1px 5px var(--card-bg) !important;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.04) !important;
 }
 
-/* Clean header/banner completely */
+/* 关闭顶部横幅区域的多余视觉 */
 #page-header {
     background: transparent !important;
     box-shadow: none !important;
 }
 
-/* Hide header info text if no image */
-#page-header #site-info {
-    padding-top: 5rem;
-    color: var(--card-bg) !important;
-    text-shadow: none !important;
+/* ---------- 页脚 ---------- */
+#footer {
+    background: var(--global-bg) !important;
+    color: var(--font-color) !important;
 }
 
-#page-header #site-title {
-    color: var(--card-bg) !important;
+#footer a {
+    color: var(--font-color) !important;
+    opacity: 0.7;
 }
 
-#page-header #site-subtitle {
-    color: var(--card-bg) !important;
+#footer a:hover {
+    opacity: 1;
 }
 
-/* Profile image rounded */
+/* ---------- 头像圆形 ---------- */
 .card-info-avatar {
     border-radius: 50% !important;
 }
