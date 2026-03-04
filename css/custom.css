@@ -67,11 +67,11 @@
     opacity: 1;
 }
 
+[data-theme="dark"] #footer {
+    background: #1a1a2e !important;
+}
+
 /* ---------- 头像圆形 ---------- */
 .card-info-avatar {
     border-radius: 50% !important;
-}
-
-[data-theme="dark"] #footer {
-    background: #1a1a2e !important;
 }
