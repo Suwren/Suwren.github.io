@@ -22,22 +22,22 @@ body {
     background: var(--card-bg) !important;
     border-radius: 12px !important;
     border: none !important;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03) !important;
+    box-shadow: 0 4px 10px var(--card-bg) !important;
     transition: all 0.3s;
 }
 
 #aside-content .card-widget:hover,
 .recent-post-item:hover,
 .article-container:hover {
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 0 8px 12px var(--card-bg) !important;
 }
 
 /* Clean Nav Bar */
 #page-header.nav-fixed #nav {
-    background: rgba(255, 255, 255, 0.8) !important;
+    background: var(--card-bg) !important;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.03) !important;
+    box-shadow: 0 1px 5px var(--card-bg) !important;
 }
 
 /* Clean header/banner completely */
@@ -49,16 +49,16 @@ body {
 /* Hide header info text if no image */
 #page-header #site-info {
     padding-top: 5rem;
-    color: #333 !important;
+    color: var(--card-bg) !important;
     text-shadow: none !important;
 }
 
 #page-header #site-title {
-    color: #333 !important;
+    color: var(--card-bg) !important;
 }
 
 #page-header #site-subtitle {
-    color: #666 !important;
+    color: var(--card-bg) !important;
 }
 
 /* Profile image rounded */
