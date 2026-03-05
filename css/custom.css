@@ -51,23 +51,6 @@
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.04) !important;
 }
 
-/* #page-header {
-    background: transparent !important;
-    box-shadow: none !important;
-} */
-
-/* ---------- 仅导航栏标题 玫红色 ---------- */
-/* #site-name,
-#blog-info a,
-#nav a,
-#nav .site-name {
-    color: #ec5587 !important;
-}
-
-#nav a:hover {
-    color: #ec5587 !important;
-} */
-
 /* 暗黑模式：导航栏标题改白色 */
 [data-theme="dark"] #site-name,
 [data-theme="dark"] #blog-info a,
@@ -152,327 +135,272 @@ button#go-up {
 }
 
 /* ============================================
-   Twikoo 评论区美化
-   配色：玫红 #ec5587 + 毛玻璃风格
+   Twikoo 评论区美化（社区热门模板）
+   主色：#ec5587  配色：毛玻璃 + 圆角
    ============================================ */
 
-/* ---------- 整体评论容器 ---------- */
+/* === 整体容器 === */
 .tk-comments-container {
     font-family: 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif !important;
 }
 
-/* ---------- 评论输入区域卡片 ---------- */
+/* === 评论输入卡片 === */
 .tk-submit {
-    background: rgba(255, 255, 255, 0.6) !important;
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
+    background: rgba(255, 255, 255, 0.65) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
     border-radius: 16px !important;
-    border: 1px solid rgba(236, 85, 135, 0.15) !important;
+    border: 1px solid rgba(236, 85, 135, 0.12) !important;
     padding: 20px !important;
-    box-shadow: 0 8px 32px rgba(236, 85, 135, 0.08) !important;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+    transition: box-shadow 0.3s ease !important;
 }
 
 .tk-submit:hover {
-    box-shadow: 0 12px 40px rgba(236, 85, 135, 0.15) !important;
-    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(236, 85, 135, 0.1) !important;
 }
 
 [data-theme="dark"] .tk-submit {
-    background: rgba(30, 30, 30, 0.7) !important;
-    border: 1px solid rgba(236, 85, 135, 0.2) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+    background: rgba(30, 30, 30, 0.75) !important;
+    border-color: rgba(236, 85, 135, 0.18) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
 }
 
-/* ---------- 昵称/邮箱/网站 输入框 ---------- */
-.tk-meta-input .el-input .el-input__inner,
-.tk-meta-input .el-input__inner,
-.tk-input .tk-meta-input input,
-.tk-meta-input input {
-    border: 2px solid #eee !important;
-    border-radius: 0 25px 25px 0 !important;
-    padding: 8px 16px !important;
+/* === 输入框标签（昵称 / 邮箱 / 网址） === */
+.el-input-group__prepend {
+    background: linear-gradient(135deg, #ec5587, #e91e63) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 20px 0 0 20px !important;
+    padding: 0 14px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+}
+
+[data-theme="dark"] .el-input-group__prepend {
+    background: linear-gradient(135deg, #d44a7a, #c2185b) !important;
+}
+
+/* === 文本输入框 === */
+.el-input__inner {
+    border: 1.5px solid #eee !important;
+    border-radius: 0 20px 20px 0 !important;
+    padding: 8px 14px !important;
     font-size: 14px !important;
-    transition: all 0.3s ease !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    height: 38px !important;
-    line-height: 1.5 !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    transition: border-color 0.3s, box-shadow 0.3s !important;
 }
 
-.tk-meta-input .el-input .el-input__inner:focus,
-.tk-meta-input .el-input__inner:focus,
-.tk-meta-input input:focus {
+.el-input__inner:focus {
     border-color: #ec5587 !important;
-    box-shadow: 0 0 0 3px rgba(236, 85, 135, 0.15) !important;
-    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(236, 85, 135, 0.12) !important;
 }
 
-[data-theme="dark"] .tk-meta-input .el-input .el-input__inner,
-[data-theme="dark"] .tk-meta-input .el-input__inner,
-[data-theme="dark"] .tk-meta-input input {
-    background: rgba(50, 50, 50, 0.8) !important;
+[data-theme="dark"] .el-input__inner {
+    background: rgba(45, 45, 45, 0.85) !important;
     border-color: #444 !important;
-    color: #e0e0e0 !important;
+    color: #ddd !important;
 }
 
-[data-theme="dark"] .tk-meta-input .el-input .el-input__inner:focus,
-[data-theme="dark"] .tk-meta-input input:focus {
-    border-color: #ec5587 !important;
-    box-shadow: 0 0 0 3px rgba(236, 85, 135, 0.25) !important;
-}
-
-/* ---------- 评论文本框 ---------- */
-.tk-input .el-textarea textarea,
-.tk-input .el-textarea__inner,
-.tk-input textarea {
-    border: 2px solid #eee !important;
-    border-radius: 16px !important;
-    padding: 14px 18px !important;
+/* === 评论文本域 === */
+.el-textarea__inner {
+    border: 1.5px solid #eee !important;
+    border-radius: 14px !important;
+    padding: 12px 16px !important;
     font-size: 15px !important;
     line-height: 1.7 !important;
-    transition: all 0.3s ease !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    resize: vertical !important;
-    min-height: 120px !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    min-height: 110px !important;
+    transition: border-color 0.3s, box-shadow 0.3s !important;
 }
 
-.tk-input .el-textarea textarea:focus,
-.tk-input .el-textarea__inner:focus,
-.tk-input textarea:focus {
+.el-textarea__inner:focus {
     border-color: #ec5587 !important;
-    box-shadow: 0 0 0 3px rgba(236, 85, 135, 0.15) !important;
-    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(236, 85, 135, 0.12) !important;
 }
 
-[data-theme="dark"] .tk-input .el-textarea textarea,
-[data-theme="dark"] .tk-input .el-textarea__inner,
-[data-theme="dark"] .tk-input textarea {
-    background: rgba(50, 50, 50, 0.8) !important;
+[data-theme="dark"] .el-textarea__inner {
+    background: rgba(45, 45, 45, 0.85) !important;
     border-color: #444 !important;
-    color: #e0e0e0 !important;
+    color: #ddd !important;
 }
 
-[data-theme="dark"] .tk-input .el-textarea textarea:focus,
-[data-theme="dark"] .tk-input .el-textarea__inner:focus,
-[data-theme="dark"] .tk-input textarea:focus {
-    border-color: #ec5587 !important;
-    box-shadow: 0 0 0 3px rgba(236, 85, 135, 0.25) !important;
-}
-
-/* ---------- 发送按钮 ---------- */
-.el-button.tk-send,
-.tk-submit .tk-send,
-button.tk-send {
+/* === 发送按钮 === */
+.el-button.tk-send {
     background: linear-gradient(135deg, #ec5587, #e91e63) !important;
-    color: #ffffff !important;
+    color: #fff !important;
     border: none !important;
-    border-radius: 25px !important;
-    padding: 10px 32px !important;
-    font-size: 14px !important;
+    border-radius: 20px !important;
+    padding: 10px 30px !important;
     font-weight: 600 !important;
-    letter-spacing: 2px !important;
-    cursor: pointer !important;
+    letter-spacing: 1px !important;
+    box-shadow: 0 4px 12px rgba(236, 85, 135, 0.25) !important;
     transition: all 0.3s ease !important;
-    box-shadow: 0 4px 15px rgba(236, 85, 135, 0.3) !important;
 }
 
-.el-button.tk-send:hover,
-.tk-submit .tk-send:hover,
-button.tk-send:hover {
+.el-button.tk-send:hover {
     transform: translateY(-2px) !important;
-    box-shadow: 0 6px 20px rgba(236, 85, 135, 0.45) !important;
-    background: linear-gradient(135deg, #e91e63, #ec5587) !important;
+    box-shadow: 0 6px 18px rgba(236, 85, 135, 0.35) !important;
 }
 
-.el-button.tk-send:active,
-button.tk-send:active {
-    transform: translateY(0) !important;
-}
-
-/* ---------- 预览按钮 ---------- */
-.el-button.tk-preview,
-.tk-submit .tk-preview,
-button.tk-preview {
-    border-radius: 25px !important;
-    border: 2px solid #ec5587 !important;
+/* === 预览按钮 === */
+.el-button.tk-preview {
+    border: 1.5px solid #ec5587 !important;
     color: #ec5587 !important;
     background: transparent !important;
-    padding: 10px 24px !important;
+    border-radius: 20px !important;
+    padding: 10px 22px !important;
     transition: all 0.3s ease !important;
 }
 
-.el-button.tk-preview:hover,
-button.tk-preview:hover {
-    background: rgba(236, 85, 135, 0.1) !important;
+.el-button.tk-preview:hover {
+    background: rgba(236, 85, 135, 0.08) !important;
 }
 
-/* ---------- 表情/图片上传图标 ---------- */
-.tk-submit .tk-actions-icon svg,
-.tk-submit .tk-action-icon svg {
-    fill: #999 !important;
-    transition: fill 0.3s ease !important;
+/* === 表情和图片图标 === */
+.tk-action-icon {
+    transition: color 0.2s !important;
 }
 
-.tk-submit .tk-actions-icon:hover svg,
-.tk-submit .tk-action-icon:hover svg {
-    fill: #ec5587 !important;
+.tk-action-icon:hover {
+    color: #ec5587 !important;
 }
 
-/* ---------- 评论列表卡片 ---------- */
+/* === 评论卡片 === */
 .tk-comment {
-    background: rgba(255, 255, 255, 0.5) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
+    background: rgba(255, 255, 255, 0.55) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
     border-radius: 14px !important;
     padding: 18px !important;
-    margin-bottom: 16px !important;
-    border: 1px solid rgba(236, 85, 135, 0.08) !important;
+    margin-bottom: 14px !important;
+    border: 1px solid rgba(236, 85, 135, 0.06) !important;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.03) !important;
     transition: all 0.3s ease !important;
 }
 
 .tk-comment:hover {
-    box-shadow: 0 6px 24px rgba(236, 85, 135, 0.12) !important;
-    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(236, 85, 135, 0.08) !important;
+    border-color: rgba(236, 85, 135, 0.12) !important;
 }
 
 [data-theme="dark"] .tk-comment {
-    background: rgba(35, 35, 35, 0.6) !important;
-    border: 1px solid rgba(236, 85, 135, 0.12) !important;
+    background: rgba(32, 32, 32, 0.65) !important;
+    border-color: rgba(236, 85, 135, 0.1) !important;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.15) !important;
 }
 
-/* ---------- 评论者昵称 ---------- */
+/* === 评论者昵称 === */
 .tk-nick {
     color: #ec5587 !important;
     font-weight: 600 !important;
     font-size: 15px !important;
 }
 
-/* ---------- 评论内容 ---------- */
+/* === 评论内容 === */
 .tk-content {
     color: #333 !important;
     line-height: 1.8 !important;
     font-size: 15px !important;
+    margin-top: 6px !important;
 }
 
 [data-theme="dark"] .tk-content {
-    color: #d0d0d0 !important;
+    color: #ccc !important;
 }
 
-/* ---------- 评论时间 ---------- */
+/* === 评论内容气泡 === */
+.tk-content p {
+    display: inline-block !important;
+    background: rgba(236, 85, 135, 0.06) !important;
+    padding: 6px 14px !important;
+    border-radius: 14px !important;
+    margin: 3px 0 !important;
+    line-height: 1.7 !important;
+}
+
+[data-theme="dark"] .tk-content p {
+    background: rgba(236, 85, 135, 0.12) !important;
+}
+
+/* === 评论时间 === */
 .tk-time {
     color: #aaa !important;
     font-size: 12px !important;
 }
 
-/* ---------- 回复按钮 ---------- */
-.tk-reply-btn,
-a.tk-reply-btn {
-    color: #ec5587 !important;
-    font-size: 13px !important;
-    transition: all 0.3s ease !important;
-}
-
-.tk-reply-btn:hover,
-a.tk-reply-btn:hover {
-    opacity: 0.7 !important;
-}
-
-/* ---------- 评论者头像 ---------- */
+/* === 评论者头像 === */
 .tk-avatar img {
     border-radius: 50% !important;
-    border: 2px solid rgba(236, 85, 135, 0.2) !important;
-    transition: all 0.3s ease !important;
+    border: 2px solid rgba(236, 85, 135, 0.15) !important;
+    transition: all 0.5s ease !important;
 }
 
 .tk-avatar img:hover {
     border-color: #ec5587 !important;
-    transform: rotate(360deg) scale(1.1);
-    transition: all 0.6s ease !important;
+    transform: rotate(360deg) scale(1.1) !important;
 }
 
-/* ---------- No Comment 文字 ---------- */
-.tk-no-comment {
-    color: #bbb !important;
-    font-style: italic !important;
-    font-size: 14px !important;
-    text-align: center !important;
-    padding: 30px 0 !important;
+/* === 点赞 / 踩 / 回复按钮 === */
+.tk-comment .tk-reply,
+.tk-comment .tk-extra {
+    color: #999 !important;
+    transition: color 0.2s !important;
 }
 
-[data-theme="dark"] .tk-no-comment {
-    color: #666 !important;
+.tk-comment .tk-reply:hover {
+    color: #ec5587 !important;
 }
 
-/* ---------- 标签标题美化 ---------- */
-.tk-comments-title {
-    font-size: 22px !important;
-    font-weight: 700 !important;
-    color: #333 !important;
-    margin-bottom: 20px !important;
-}
-
-[data-theme="dark"] .tk-comments-title {
-    color: #eee !important;
-}
-
-/* ---------- Powered by 底部 ---------- */
-.tk-powered-by {
-    opacity: 0.4 !important;
-    font-size: 12px !important;
-    transition: opacity 0.3s ease !important;
-}
-
-.tk-powered-by:hover {
-    opacity: 0.8 !important;
-}
-
-/* ---------- 输入框标签（昵称/邮箱/网址）---------- */
-.tk-meta-input .el-input-group__prepend,
-.el-input-group__prepend {
-    border-radius: 25px 0 0 25px !important;
+/* === 博主标签 === */
+.tk-tag {
     background: linear-gradient(135deg, #ec5587, #e91e63) !important;
     color: #fff !important;
-    border: 2px solid #ec5587 !important;
-    border-right: none !important;
-    font-size: 13px !important;
-    font-weight: 500 !important;
-    padding: 0 14px !important;
+    border-radius: 8px !important;
+    padding: 1px 8px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    border: none !important;
+    margin-left: 6px !important;
 }
 
-[data-theme="dark"] .tk-meta-input .el-input-group__prepend,
-[data-theme="dark"] .el-input-group__prepend {
-    background: linear-gradient(135deg, #ec5587, #c2185b) !important;
-    border-color: #ec5587 !important;
-}
-
-/* ---------- 表情面板 ---------- */
+/* === 表情面板 === */
 .tk-owo-panel {
     border-radius: 12px !important;
-    border: 1px solid rgba(236, 85, 135, 0.15) !important;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1) !important;
-    overflow: hidden !important;
-}
-
-.tk-owo-category {
-    border-radius: 8px !important;
+    border: 1px solid rgba(236, 85, 135, 0.12) !important;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08) !important;
 }
 
 .tk-owo-category.active {
     background: #ec5587 !important;
     color: #fff !important;
+    border-radius: 6px !important;
 }
 
-/* ---------- 字数统计 ---------- */
-.tk-input .tk-row.tk-actions .tk-count {
-    color: #aaa !important;
+/* === "没有评论" === */
+.tk-no-comment {
+    color: #bbb !important;
+    font-size: 14px !important;
+    text-align: center !important;
+    padding: 30px 0 !important;
+}
+
+/* === Powered by === */
+.tk-powered-by {
+    opacity: 0.35 !important;
     font-size: 12px !important;
+    transition: opacity 0.3s !important;
 }
 
-/* ---------- 管理/设置图标 ---------- */
+.tk-powered-by:hover {
+    opacity: 0.75 !important;
+}
+
+/* === 管理/设置图标 === */
 .tk-admin-config svg,
 .tk-admin-refresh svg {
     fill: #ec5587 !important;
-    transition: all 0.3s ease !important;
+    transition: transform 0.3s !important;
 }
 
 .tk-admin-config:hover svg,
@@ -480,43 +408,12 @@ a.tk-reply-btn:hover {
     transform: rotate(30deg) !important;
 }
 
-/* ---------- 评论内容气泡样式 ---------- */
-.tk-content p {
-    display: inline-block !important;
-    background: rgba(236, 85, 135, 0.08) !important;
-    padding: 8px 16px !important;
-    border-radius: 18px !important;
-    margin: 4px 0 !important;
-    line-height: 1.6 !important;
+/* === 评论排序图标 === */
+.tk-comments-title .tk-icon {
+    color: #ec5587 !important;
 }
 
-[data-theme="dark"] .tk-content p {
-    background: rgba(236, 85, 135, 0.15) !important;
-}
-
-/* ---------- 回复评论框样式 ---------- */
-.tk-replies .tk-comment {
-    margin-left: 40px !important;
-    background: rgba(236, 85, 135, 0.04) !important;
-    border-left: 3px solid #ec5587 !important;
-}
-
-[data-theme="dark"] .tk-replies .tk-comment {
-    background: rgba(236, 85, 135, 0.08) !important;
-}
-
-/* ---------- 评论区标题（发表）按钮居中 ---------- */
-.tk-row.tk-actions {
-    justify-content: center !important;
-}
-
-/* ---------- 博主标签 ---------- */
-.tk-tag {
-    background: linear-gradient(135deg, #ec5587, #e91e63) !important;
-    color: #fff !important;
-    border-radius: 10px !important;
-    padding: 2px 8px !important;
-    font-size: 11px !important;
+/* === 评论数标题 === */
+.tk-comments-title span {
     font-weight: 600 !important;
-    border: none !important;
 }
