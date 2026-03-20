@@ -1,0 +1,358 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>MOSFET开关瞬态过程分析 | Suwren</title><meta name="author" content="苏鹩"><meta name="copyright" content="苏鹩"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="MOSFET开关瞬态过程分析一、研究MOSFET开关瞬态过程的意义MOSFET的开关瞬态过程一般发生在μs甚至ns级别，研究这个瞬态过程的意义体现在一下几个方面。  分析开关损耗：开关损耗是高频电路的主要损耗来源，研究瞬态过程，就能够定性甚至定量计算开通和关断过程中的电压电流交叠区域大小，了解影响开关损耗的具体变量。 分析开关过冲：在瞬态开关过程中，会产生电压尖峰和电流浪涌。研究瞬态开关过程有助于">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MOSFET开关瞬态过程分析">
+<meta property="og:url" content="https://suwren.github.io/2026/03/20/MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="Suwren">
+<meta property="og:description" content="MOSFET开关瞬态过程分析一、研究MOSFET开关瞬态过程的意义MOSFET的开关瞬态过程一般发生在μs甚至ns级别，研究这个瞬态过程的意义体现在一下几个方面。  分析开关损耗：开关损耗是高频电路的主要损耗来源，研究瞬态过程，就能够定性甚至定量计算开通和关断过程中的电压电流交叠区域大小，了解影响开关损耗的具体变量。 分析开关过冲：在瞬态开关过程中，会产生电压尖峰和电流浪涌。研究瞬态开关过程有助于">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://suwren.github.io/img/avatar.jpg">
+<meta property="article:published_time" content="2026-03-20T11:44:15.000Z">
+<meta property="article:modified_time" content="2026-03-20T17:36:23.498Z">
+<meta property="article:author" content="苏鹩">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://suwren.github.io/img/avatar.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "MOSFET开关瞬态过程分析",
+  "url": "https://suwren.github.io/2026/03/20/MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/",
+  "image": "https://suwren.github.io/img/avatar.jpg",
+  "datePublished": "2026-03-20T11:44:15.000Z",
+  "dateModified": "2026-03-20T17:36:23.498Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "苏鹩",
+      "url": "https://Suwren.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://suwren.github.io/2026/03/20/MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MOSFET开关瞬态过程分析',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-color: #e8f5e9;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-graduation-cap"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-folder-open"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/background.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Suwren</span></a><a class="nav-page-title" href="/"><span class="site-name">MOSFET开关瞬态过程分析</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-graduation-cap"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-folder-open"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">MOSFET开关瞬态过程分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-20T11:44:15.000Z" title="发表于 2026-03-20 19:44:15">2026-03-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-20T17:36:23.498Z" title="更新于 2026-03-21 01:36:23">2026-03-21</time></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="MOSFET开关瞬态过程分析"><a href="#MOSFET开关瞬态过程分析" class="headerlink" title="MOSFET开关瞬态过程分析"></a>MOSFET开关瞬态过程分析</h1><h2 id="一、研究MOSFET开关瞬态过程的意义"><a href="#一、研究MOSFET开关瞬态过程的意义" class="headerlink" title="一、研究MOSFET开关瞬态过程的意义"></a>一、研究MOSFET开关瞬态过程的意义</h2><p>MOSFET的开关瞬态过程一般发生在μs甚至ns级别，研究这个瞬态过程的意义体现在一下几个方面。</p>
+<ol>
+<li><strong>分析开关损耗</strong>：开关损耗是高频电路的主要损耗来源，研究瞬态过程，就能够定性甚至定量计算开通和关断过程中的电压电流交叠区域大小，了解影响开关损耗的具体变量。</li>
+<li><strong>分析开关过冲</strong>：在瞬态开关过程中，会产生电压尖峰和电流浪涌。研究瞬态开关过程有助于定性甚至定量计算它们的大小，从而确保它们保持在安全范围之内。</li>
+<li><strong>优化EMI设计</strong>：瞬态过程中的高dv&#x2F;dt和高di&#x2F;dt是电磁干扰的主要源头。开关速度过快，EMI问题严重；速度慢，损耗增大。通过分析瞬态波形，有助于定量分析二者应当如何平衡。</li>
+</ol>
+<p>除去以上几点外，研究MOSFET开关瞬态过程在其他包括指导器件选型，分析并联均流，建立精确仿真模型等方面也都有帮助。</p>
+<h2 id="二、MOSFET开关瞬态过程包含哪些时间段"><a href="#二、MOSFET开关瞬态过程包含哪些时间段" class="headerlink" title="二、MOSFET开关瞬态过程包含哪些时间段"></a>二、MOSFET开关瞬态过程包含哪些时间段</h2><p>MOSFET的开关过程分为<strong>开通瞬态过程</strong>和<strong>关断瞬态过程</strong>两部分。接下来我们使用下面这个电路图用来对开关过程进行分析：</p>
+<p><img src="/./mosfet%E5%BC%80%E5%85%B3%E7%AD%89%E6%95%88%E7%94%B5%E8%B7%AF.svg" alt="MOSFET开关等效电路"></p>
+<h3 id="2-1-开通瞬态过程"><a href="#2-1-开通瞬态过程" class="headerlink" title="2.1 开通瞬态过程"></a>2.1 开通瞬态过程</h3><p>MOSFET开通瞬态过程可以分为<strong>四个阶段</strong>：开通延迟阶段，电流上升阶段，米勒平台阶段和开通完成阶段。MOSFET开通瞬态过程的示意图如下：</p>
+<p><img src="/./mosfet_turnon_waveform.svg" alt="MOSFET开通瞬态波形示意图"></p>
+<hr>
+<h4 id="阶段一：开通延迟阶段（-t-0-sim-t-1-）"><a href="#阶段一：开通延迟阶段（-t-0-sim-t-1-）" class="headerlink" title="阶段一：开通延迟阶段（$t_0 \sim t_1$）"></a>阶段一：开通延迟阶段（$t_0 \sim t_1$）</h4><p>驱动信号施加后，驱动电流开始对 MOSFET 的输入电容 $C_{iss}$（$C_{iss} &#x3D; C_{gs} + C_{gd}$）进行充电。此时 $V_{GS}$ 从 $V_{GL}$ 开始按 RC 充电规律渐近上升，但尚未达到阈值电压 $V_{th}$，MOSFET 仍然处于截止状态。此时：</p>
+<ul>
+<li>漏极无电流 $I_D &#x3D; 0$</li>
+<li>漏源电压 $V_{DS} &#x3D; V_{DD}$</li>
+<li>此阶段无开关损耗</li>
+</ul>
+<p><strong>波形公式</strong>：</p>
+<p>$$V_{GS}(t) &#x3D; V_{GH} - (V_{GH} - V_{GL}) \cdot e^{-\frac{t - t_0}{R_g \cdot C_{iss}}}$$</p>
+<p><strong>阶段结束条件</strong>：$V_{GS}$ 上升到阈值电压 $V_{th}$ 时进入下一阶段。</p>
+<p><strong>延迟时间</strong>：</p>
+<p>$$t_{d(on)} &#x3D; t_1 - t_0 &#x3D; R_g \cdot C_{iss} \cdot \ln\left(\frac{V_{GH} - V_{GL}}{V_{GH} - V_{th}}\right)$$</p>
+<hr>
+<h4 id="阶段二：电流上升阶段（-t-1-sim-t-2-）"><a href="#阶段二：电流上升阶段（-t-1-sim-t-2-）" class="headerlink" title="阶段二：电流上升阶段（$t_1 \sim t_2$）"></a>阶段二：电流上升阶段（$t_1 \sim t_2$）</h4><p>$V_{GS}$ 超过 $V_{th}$ 后，MOSFET 进入饱和区，导电沟道形成。漏极电流 $I_D$ 开始随 $V_{GS}$ 的继续上升而线性增大（由跨导 $g_m$ 决定）。续流二极管仍在导通，因此 $V_{DS}$ 仍然被钳位在 $V_{DD}$。此时：</p>
+<ul>
+<li>$V_{GS}$ 继续按 RC 充电规律渐近上升</li>
+<li>$I_D$ 随 $V_{GS}$ 增长而增长：$I_D &#x3D; g_m (V_{GS} - V_{th})$</li>
+<li>$V_{DS} \approx V_{DD}$（续流二极管尚未关断）</li>
+<li>此阶段 $V_{DS}$ 和 $I_D$ 发生<strong>交叠</strong>，产生开通损耗</li>
+</ul>
+<p><strong>波形公式</strong>：</p>
+<p>$$V_{GS}(t) &#x3D; V_{GH} - (V_{GH} - V_{GL}) \cdot e^{-\frac{t - t_0}{R_G \cdot C_{iss}}}$$</p>
+<p>$$I_D(t) &#x3D; g_m \left[V_{GS}(t) - V_{th}\right]$$</p>
+<p><strong>阶段结束条件</strong>：当 $I_D$ 上升到负载电流 $I_L$ 时，续流二极管电流降为零并开始反向恢复。此时对应的栅源电压即为 <strong>米勒平台电压</strong>：</p>
+<p>$$V_{GP} &#x3D; V_{th} + \frac{I_L}{g_m}$$</p>
+<hr>
+<h4 id="阶段三：电压下降阶段-米勒平台阶段（-t-2-sim-t-3-）"><a href="#阶段三：电压下降阶段-米勒平台阶段（-t-2-sim-t-3-）" class="headerlink" title="阶段三：电压下降阶段 &#x2F; 米勒平台阶段（$t_2 \sim t_3$）"></a>阶段三：电压下降阶段 &#x2F; 米勒平台阶段（$t_2 \sim t_3$）</h4><p>在这个阶段，$I_D$ 已经等于 $I_L$，MOSFET 仍处于饱和区。此时驱动电流全部用于对米勒电容 $C_{GD}$（即 $C_{rss}$）充电，使得 $V_{DS}$ 快速下降。由于 $I_D &#x3D; g_m(V_{GS}-V_{th})$ 保持恒定为 $I_L$，所以 $V_{GS}$ 被”锁定”在 $V_{GP}$ 不变，形成著名的 <strong>米勒平台</strong>。此时：</p>
+<ul>
+<li>$V_{GS} &#x3D; V_{GP}$（恒定不变，米勒平台）</li>
+<li>$I_D &#x3D; I_L$（恒定不变）</li>
+<li>$V_{DS}$ 从 $V_{DD}$ <strong>快速下降</strong>到 $V_{DS(on)} &#x3D; I_L \cdot R_{DS(on)}$</li>
+<li>此阶段 $V_{DS}$ 和 $I_D$ 仍有<strong>交叠</strong>，是开通损耗的主要来源之一</li>
+<li>米勒电容 $C_{GD}$ 是非线性的，$V_{DS}$ 高时 $C_{GD}$ 很小（下降快），$V_{DS}$ 低时 $C_{GD}$ 突然增大（下降变慢）</li>
+</ul>
+<p><strong>波形公式</strong>：</p>
+<p>米勒平台期间的恒定充电电流为：</p>
+<p>$$I_{G} &#x3D; \frac{V_{GH} - V_{GP}}{R_G}$$</p>
+<p>$V_{DS}$ 的下降速率由米勒电容决定（简化为线性近似时）：</p>
+<p>$$\frac{dV_{DS}}{dt} &#x3D; -\frac{I_G}{C_{GD}} &#x3D; -\frac{V_{GH} - V_{GP}}{R_G \cdot C_{GD}}$$</p>
+<p>米勒平台持续时间（线性近似）：</p>
+<p>$$t_{Miller} &#x3D; t_3 - t_2 \approx \frac{R_G \cdot C_{GD} \cdot (V_{DD} - V_{DS(on)})}{V_{GH} - V_{GP}}$$</p>
+<blockquote>
+<p><strong>注意</strong>：实际中 $C_{GD}$ 是 $V_{DS}$ 的强非线性函数，因此 $V_{DS}$ 的下降波形并不是严格的直线，而是先快后慢的曲线。</p>
+<p><strong>精确的积分计算公式</strong>：<br>在米勒平台期间，驱动电流 $I_G$ 完全用于抽取 $C_{GD}$ 的电荷，动态方程为：<br>$$I_G &#x3D; - C_{GD}(V_{DS}) \frac{dV_{DS}}{dt}$$</p>
+<p>对方程分离变量，并在时间段 $[t_2, t_3]$（对应电压从 $V_{DD}$ 降至 $V_{DS(on)}$）上进行积分：<br>$$\int_{t_2}^{t_3} dt &#x3D; -\frac{1}{I_G} \int_{V_{DD}}^{V_{DS(on)}} C_{GD}(V_{DS}) , dV_{DS}$$</p>
+<p>颠倒积分上下限以消去负号，代入 $I_G$ 的表达式，得到精确的米勒平台持续时间：<br>$$t_{Miller} &#x3D; \frac{R_G}{V_{GH} - V_{GP}} \int_{V_{DS(on)}}^{V_{DD}} C_{GD}(V_{DS}) , dV_{DS}$$</p>
+<p><em>(注：这个积分项 $\int C_{GD}(V_{DS}) dV_{DS}$ 正是数据手册中“栅满漏电荷” $Q_{GD}$ 的物理定义，所以精确时间最终等于 $R_G \cdot Q_{GD} &#x2F; (V_{GH}-V_{GP})$ )</em></p>
+</blockquote>
+<hr>
+<h4 id="阶段四：剩余栅极充电阶段-通态完成（-t-3-sim-t-4-）"><a href="#阶段四：剩余栅极充电阶段-通态完成（-t-3-sim-t-4-）" class="headerlink" title="阶段四：剩余栅极充电阶段 &#x2F; 通态完成（$t_3 \sim t_4$）"></a>阶段四：剩余栅极充电阶段 &#x2F; 通态完成（$t_3 \sim t_4$）</h4><p>$V_{DS}$ 已经下降到 $V_{DS(on)}$，MOSFET 从饱和区进入线性区（从受控电流源变为电阻）。$C_{GD}$ 的充电完成，驱动电流重新对 $C_{GS}$ 和 $C_{GD}$ 一起充电，$V_{GS}$ 从 $V_{GP}$ 继续上升，直到趋近于驱动电压 $V_{GH}$。此时：</p>
+<ul>
+<li>$V_{GS}$ 从 $V_{GP}$ 继续上升趋近 $V_{GH}$</li>
+<li>$I_D &#x3D; I_L$（保持不变）</li>
+<li>$V_{DS} &#x3D; I_L \cdot R_{DS(on)}$（保持在很低的导通压降）</li>
+<li>此阶段几乎无开关损耗（只有很小的导通损耗）</li>
+</ul>
+<p><strong>波形公式</strong>：</p>
+<p>$$V_{GS}(t) &#x3D; V_{GH} - (V_{GH} - V_{GP}) \cdot e^{-\frac{t - t_3}{R_G \cdot C_{iss}}}$$</p>
+<hr>
+<h4 id="开通损耗估算"><a href="#开通损耗估算" class="headerlink" title="开通损耗估算"></a>开通损耗估算</h4><p>开通过程中的开关损耗主要集中在<strong>阶段二</strong>（电流上升）和<strong>阶段三</strong>（电压下降）中 $V_{DS}$ 和 $I_D$ 交叠的区域。简化的线性近似估算公式为：</p>
+<p>$$E_{on} \approx \frac{1}{2} V_{DD} \cdot I_L \cdot (t_{ri} + t_{fv})$$</p>
+<p>其中：</p>
+<ul>
+<li>$t_{ri} &#x3D; t_2 - t_1$ 为电流上升时间</li>
+<li>$t_{fv} &#x3D; t_3 - t_2$ 为电压下降时间</li>
+</ul>
+<p>开通过程的平均开关损耗功率为：</p>
+<p>$$P_{sw,on} &#x3D; E_{on} \cdot f_{sw}$$</p>
+<p>其中 $f_{sw}$ 为开关频率。</p>
+<h3 id="2-2-关断瞬态过程"><a href="#2-2-关断瞬态过程" class="headerlink" title="2.2 关断瞬态过程"></a>2.2 关断瞬态过程</h3><p>MOSFET关断瞬态过程就是其开通瞬态过程的逆过程，因此不在作详细介绍（其实是懒了，以后时间再补上）。</p>
+<blockquote>
+<p><strong>注意</strong>：本文使用了大语言模型辅助写作，但是每一处文字均经过本人阅读<br>、修改和查证。在本人的认知范围内，确保内容的准确性。</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://Suwren.github.io">苏鹩</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://suwren.github.io/2026/03/20/MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/">https://suwren.github.io/2026/03/20/MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://Suwren.github.io" target="_blank">Suwren</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">苏鹩</div><div class="author-info-description">为自由而歌</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">空</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">MOSFET开关瞬态过程分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%A0%94%E7%A9%B6MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E7%9A%84%E6%84%8F%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text">一、研究MOSFET开关瞬态过程的意义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%8C%85%E5%90%AB%E5%93%AA%E4%BA%9B%E6%97%B6%E9%97%B4%E6%AE%B5"><span class="toc-number">1.2.</span> <span class="toc-text">二、MOSFET开关瞬态过程包含哪些时间段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%BC%80%E9%80%9A%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 开通瞬态过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%80%EF%BC%9A%E5%BC%80%E9%80%9A%E5%BB%B6%E8%BF%9F%E9%98%B6%E6%AE%B5%EF%BC%88-t-0-sim-t-1-%EF%BC%89"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">阶段一：开通延迟阶段（$t_0 \sim t_1$）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%BA%8C%EF%BC%9A%E7%94%B5%E6%B5%81%E4%B8%8A%E5%8D%87%E9%98%B6%E6%AE%B5%EF%BC%88-t-1-sim-t-2-%EF%BC%89"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">阶段二：电流上升阶段（$t_1 \sim t_2$）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%89%EF%BC%9A%E7%94%B5%E5%8E%8B%E4%B8%8B%E9%99%8D%E9%98%B6%E6%AE%B5-%E7%B1%B3%E5%8B%92%E5%B9%B3%E5%8F%B0%E9%98%B6%E6%AE%B5%EF%BC%88-t-2-sim-t-3-%EF%BC%89"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">阶段三：电压下降阶段 &#x2F; 米勒平台阶段（$t_2 \sim t_3$）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E5%9B%9B%EF%BC%9A%E5%89%A9%E4%BD%99%E6%A0%85%E6%9E%81%E5%85%85%E7%94%B5%E9%98%B6%E6%AE%B5-%E9%80%9A%E6%80%81%E5%AE%8C%E6%88%90%EF%BC%88-t-3-sim-t-4-%EF%BC%89"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">阶段四：剩余栅极充电阶段 &#x2F; 通态完成（$t_3 \sim t_4$）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E9%80%9A%E6%8D%9F%E8%80%97%E4%BC%B0%E7%AE%97"><span class="toc-number">1.2.1.5.</span> <span class="toc-text">开通损耗估算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%85%B3%E6%96%AD%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 关断瞬态过程</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/20/MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/" title="MOSFET开关瞬态过程分析">MOSFET开关瞬态过程分析</a><time datetime="2026-03-20T11:44:15.000Z" title="发表于 2026-03-20 19:44:15">2026-03-20</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By 苏鹩</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"lang":"zh-CN"}
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-vercel-bay-seven.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-vercel-bay-seven.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.7.1/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script></div></body></html>
