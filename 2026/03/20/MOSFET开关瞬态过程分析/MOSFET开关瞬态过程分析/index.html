@@ -166,10 +166,10 @@
 </ol>
 <p>除去以上几点外，研究MOSFET开关瞬态过程在其他包括指导器件选型，分析并联均流，建立精确仿真模型等方面也都有帮助。</p>
 <h2 id="二、MOSFET开关瞬态过程包含哪些时间段"><a href="#二、MOSFET开关瞬态过程包含哪些时间段" class="headerlink" title="二、MOSFET开关瞬态过程包含哪些时间段"></a>二、MOSFET开关瞬态过程包含哪些时间段</h2><p>MOSFET的开关过程分为<strong>开通瞬态过程</strong>和<strong>关断瞬态过程</strong>两部分。接下来我们使用下面这个电路图用来对开关过程进行分析：</p>
-
+<img src="/2026/03/20/MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/mosfet%E5%BC%80%E5%85%B3%E7%AD%89%E6%95%88%E7%94%B5%E8%B7%AF.svg" class="" title="MOSFET开关等效电路">
 
 <h3 id="2-1-开通瞬态过程"><a href="#2-1-开通瞬态过程" class="headerlink" title="2.1 开通瞬态过程"></a>2.1 开通瞬态过程</h3><p>MOSFET开通瞬态过程可以分为<strong>四个通用阶段</strong>：开通延迟时间、电流上升时间、电压下降时间（米勒平台）和导通完成阶段。MOSFET开通瞬态过程的示意图如下：</p>
-
+<img src="/2026/03/20/MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/MOSFET%E5%BC%80%E5%85%B3%E7%9E%AC%E6%80%81%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/mosfet_turnon_waveform.svg" class="" title="MOSFET开通瞬态波形示意图">
 
 <hr>
 <h4 id="阶段一：开通延迟阶段（-t-0-sim-t-1-）"><a href="#阶段一：开通延迟阶段（-t-0-sim-t-1-）" class="headerlink" title="阶段一：开通延迟阶段（$t_0 \sim t_1$）"></a>阶段一：开通延迟阶段（$t_0 \sim t_1$）</h4><p>驱动信号施加后，驱动电流开始对 MOSFET 的输入电容 $C_{iss}$（$C_{iss} &#x3D; C_{gs} + C_{gd}$）进行充电。此时 $V_{gs}$ 从 $V_{gl}$ 开始按 RC 充电规律渐近上升，但尚未达到阈值电压 $V_{th}$，MOSFET 仍然处于截止状态。此时：</p>
